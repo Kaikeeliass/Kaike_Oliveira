@@ -1,15 +1,10 @@
-/* ═══════════════════════════════════════════════════════════
-   KAIKE ELIAS · OLIVEIRA — script.js unificado
-   Funciona em: portfolio (index.html) + comercial (servicos.html)
-   + projetos (projetos.html)
-═══════════════════════════════════════════════════════════ */
 
 /* ─── 1. ANO NO RODAPÉ ─── */
 document.querySelectorAll("[id='year'], .js-year").forEach(el => {
   el.textContent = new Date().getFullYear();
 });
 
-/* ─── 2. TEMA CLARO / ESCURO (portfólio usa data-theme no <html>) ─── */
+/* ─── 2. TEMA CLARO / ESCURO ─── */
 const html = document.documentElement;
 const themeToggleBtn = document.getElementById("theme-toggle");
 
@@ -50,7 +45,7 @@ if (hamburger && mobileMenu) {
 }
 
 /* ─── 4. CURSOR PERSONALIZADO ─── */
-const cursor    = document.getElementById("cursor");
+const cursor = document.getElementById("cursor");
 const cursorRing = document.getElementById("cursor-ring");
 
 if (cursor && cursorRing && window.matchMedia("(pointer: fine)").matches) {
@@ -69,10 +64,12 @@ if (cursor && cursorRing && window.matchMedia("(pointer: fine)").matches) {
   })();
 
   document.addEventListener("mouseleave", () => {
-    cursor.style.opacity = "0"; cursorRing.style.opacity = "0";
+    cursor.style.opacity = "0";
+    cursorRing.style.opacity = "0";
   });
   document.addEventListener("mouseenter", () => {
-    cursor.style.opacity = "1"; cursorRing.style.opacity = "1";
+    cursor.style.opacity = "1";
+    cursorRing.style.opacity = "1";
   });
 }
 
@@ -83,12 +80,10 @@ const revealObs = new IntersectionObserver((entries) => {
     const el = entry.target;
     el.classList.add("visible");
 
-    /* Barras de habilidade (site comercial) */
     el.querySelectorAll(".skill-fill").forEach(bar => {
       bar.style.width = (bar.dataset.width || "0") + "%";
     });
 
-    /* Contadores animados (site comercial) */
     el.querySelectorAll("[data-count]").forEach(counter => {
       const target = +counter.dataset.count;
       const isPercent = target === 100;
@@ -107,7 +102,6 @@ const revealObs = new IntersectionObserver((entries) => {
 
 document.querySelectorAll(".reveal, .timeline-item").forEach(el => revealObs.observe(el));
 
-/* Stagger em grids */
 document.querySelectorAll(
   ".services-grid .service-card, .projects-grid .project-card, .proj-grid .proj-card"
 ).forEach((el, i) => { el.style.transitionDelay = (i * 0.08) + "s"; });
@@ -121,7 +115,7 @@ if (typingTarget) {
     "Criador da startup GRAI EcoSystems.",
     "Empreendedor movido por tecnologia e impacto.",
   ];
-  let ti = 0, ci = 0, del = false, paused = false;
+  let ti = 0, ci = 0, del = false, paused = false, started = false; // FLAG: evita múltiplos disparos
 
   const type = () => {
     if (paused) return;
@@ -145,12 +139,19 @@ if (typingTarget) {
   const heroEl = document.querySelector(".hero");
   if (heroEl) {
     new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) type(); });
+      entries.forEach(e => {
+        if (e.isIntersecting && !started) { // Dispara somente uma vez
+          started = true;
+          type();
+        }
+      });
     }, { threshold: 0.5 }).observe(heroEl);
-  } else { type(); }
+  } else {
+    type();
+  }
 }
 
-/* ─── 7. TABS hard/soft skills (portfólio) ─── */
+/* ─── 7. TABS hard/soft skills ─── */
 document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
@@ -164,80 +165,32 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
   });
 });
 
-/* ─── 8. FILTRO DE PROJETOS (projetos.html) ─── */
-const filterBtns  = document.querySelectorAll(".filter-btn");
-const projCards   = document.querySelectorAll(".proj-card[data-cat]");
+/* ─── 8. FILTRO DE PROJETOS ─── */
+const filterBtns = document.querySelectorAll(".filter-btn");
+const projCards = document.querySelectorAll(".proj-card[data-cat]");
 
 filterBtns.forEach(btn => {
   btn.addEventListener("click", () => {
     filterBtns.forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
     const f = btn.dataset.filter;
-    projCards.forEach(card => {
+
+    projCards.forEach((card, i) => {
       const show = f === "all" || card.dataset.cat === f;
-      card.style.display = show ? "" : "none";
       if (show) {
+        card.style.display = "";
         card.classList.remove("visible");
-        requestAnimationFrame(() => revealObs.observe(card));
+        card.style.transitionDelay = (i * 0.06) + "s";
+        void card.offsetWidth;
+        revealObs.observe(card);
+      } else {
+        card.style.display = "none";
       }
     });
   });
 });
 
-/* ─── 9. FORMULÁRIO PORTFÓLIO → WhatsApp ─── */
-const formPortfolio = document.getElementById("formContato");
-if (formPortfolio) {
-  formPortfolio.addEventListener("submit", e => {
-    e.preventDefault();
-    const nome     = document.getElementById("nome")?.value.trim();
-    const email    = document.getElementById("email")?.value.trim();
-    const mensagem = document.getElementById("mensagem")?.value.trim();
-    if (!nome || !email || !mensagem) return showToast("Preencha todos os campos.", "warning");
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showToast("E-mail inválido.", "warning");
-
-    const txt = `📩 *Contato pelo Portfólio!*\n\n*Nome:* ${nome}\n*E-mail:* ${email}\n*Mensagem:* ${mensagem}`;
-    window.open(`https://wa.me/5517997208457?text=${encodeURIComponent(txt)}`, "_blank", "noopener");
-    formPortfolio.reset();
-    showToast("Abrindo WhatsApp... 🚀", "success");
-  });
-}
-
-/* ─── 10. FORMULÁRIO COMERCIAL → WhatsApp ─── */
-const formComercial = document.getElementById("contactForm");
-if (formComercial) {
-  formComercial.addEventListener("submit", e => {
-    e.preventDefault();
-    const btn = document.getElementById("submitBtn");
-
-    /* Coleta campos com suporte ao select */
-    const fields = {};
-    formComercial.querySelectorAll("[name]").forEach(f => { fields[f.name] = f.value.trim(); });
-
-    const nome     = fields.nome     || formComercial.querySelector("input[type=text]")?.value.trim();
-    const email    = fields.email    || formComercial.querySelector("input[type=email]")?.value.trim();
-    const empresa  = fields.empresa  || "";
-    const tipo     = fields.tipo     || formComercial.querySelector("select")?.value || "";
-    const mensagem = fields.mensagem || formComercial.querySelector("textarea")?.value.trim();
-
-    if (!nome || !email || !mensagem) return showToast("Preencha nome, e-mail e mensagem.", "warning");
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showToast("E-mail inválido.", "warning");
-
-    const txt = `💼 *Proposta de Projeto!*\n\n*Nome:* ${nome}\n*E-mail:* ${email}${empresa ? `\n*Empresa:* ${empresa}` : ""}${tipo ? `\n*Tipo:* ${tipo}` : ""}\n*Mensagem:* ${mensagem}\n\n_Enviado pelo site de serviços_`;
-    window.open(`https://wa.me/5517997208457?text=${encodeURIComponent(txt)}`, "_blank", "noopener");
-
-    if (btn) {
-      const orig = btn.textContent;
-      btn.textContent = "✓ Enviado com sucesso!";
-      btn.style.background = "#22c55e";
-      setTimeout(() => { btn.textContent = orig; btn.style.background = ""; formComercial.reset(); }, 3200);
-    } else {
-      formComercial.reset();
-    }
-    showToast("Abrindo WhatsApp! 🚀", "success");
-  });
-}
-
-/* ─── 11. TOAST ─── */
+/* ─── 9. TOAST ─── */
 function showToast(msg, type = "info") {
   let wrap = document.getElementById("_toast_wrap");
   if (!wrap) {
@@ -248,7 +201,7 @@ function showToast(msg, type = "info") {
   const colors = { success: "#22c55e", warning: "#f59e0b", error: "#ef4444", info: "#3b82f6" };
   const t = document.createElement("div");
   t.textContent = msg;
-  t.style.cssText = `background:#161d30;color:#fff;padding:.75rem 1.25rem;border-radius:10px;font-size:14px;max-width:290px;border-left:3px solid ${colors[type]||colors.info};opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;pointer-events:auto;`;
+  t.style.cssText = `background:#161d30;color:#fff;padding:.75rem 1.25rem;border-radius:10px;font-size:14px;max-width:290px;border-left:3px solid ${colors[type] || colors.info};opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;pointer-events:auto;`;
   wrap.appendChild(t);
   requestAnimationFrame(() => { t.style.opacity = "1"; t.style.transform = "translateY(0)"; });
   setTimeout(() => {
@@ -257,21 +210,9 @@ function showToast(msg, type = "info") {
   }, 3600);
 }
 
-/* ─── 12. LINK ATIVO NA NAVBAR por scroll ─── */
+/* ─── 10. LINK ATIVO NA NAVBAR por scroll ─── */
 const allSections = document.querySelectorAll("section[id], header[id]");
 const allNavLinks = document.querySelectorAll(".nav-links a, .mobile-menu a");
-
-new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const id = entry.target.id;
-      allNavLinks.forEach(a => {
-        const h = a.getAttribute("href") || "";
-        a.classList.toggle("active", h === `#${id}` || h.endsWith(`#${id}`));
-      });
-    }
-  });
-}, { threshold: 0.38 }).observe(document.body.firstElementChild || document.body);
 
 allSections.forEach(s => {
   new IntersectionObserver((entries) => {
@@ -286,7 +227,7 @@ allSections.forEach(s => {
   }, { threshold: 0.42 }).observe(s);
 });
 
-/* ─── 13. SCROLL SUAVE — âncoras na mesma página ─── */
+/* ─── 11. SCROLL SUAVE — âncoras na mesma página ─── */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener("click", e => {
     const tgt = document.querySelector(anchor.getAttribute("href"));
@@ -294,10 +235,300 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-/* ─── 14. BOTÃO VOLTAR AO TOPO (site comercial usa .back-top e footer > a) ─── */
+/* ─── 12. BOTÃO VOLTAR AO TOPO ─── */
 document.querySelectorAll(".back-top").forEach(btn => {
   btn.addEventListener("click", e => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 });
+
+/* ─── 13. MODE BANNER — esconde ao chegar no footer ─── */
+const banner = document.querySelector(".mode-banner");
+const footer = document.querySelector(".footer");
+if (banner && footer) {
+  new IntersectionObserver(
+    ([entry]) => { banner.classList.toggle("hidden", entry.isIntersecting); },
+    { threshold: 0.1 }
+  ).observe(footer);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ─── 14. FORMULÁRIO DE CONTATO — EmailJS ───
+   ═══════════════════════════════════════════════════════════════ */
+
+(function initContactForm() {
+  const EMAILJS_PUBLIC_KEY = "uikqMZyeHWmzNWxR6";
+  const EMAILJS_SERVICE_ID = "service_ucfvv6i";
+  const EMAILJS_TEMPLATE_ID = "template_kffjf4m";
+
+  function waitForEmailJS(cb, tries = 0) {
+    if (typeof emailjs !== "undefined") {
+      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+      cb();
+    } else if (tries < 20) {
+      setTimeout(() => waitForEmailJS(cb, tries + 1), 150);
+    } else {
+      console.warn("EmailJS SDK não carregou.");
+    }
+  }
+
+  waitForEmailJS(() => {
+    const form = document.getElementById("formContato");
+    if (!form) return;
+
+    const submitBtn = document.getElementById("submitBtn");
+    const btnText = submitBtn?.querySelector(".btn-text");
+    const btnIcon = submitBtn?.querySelector(".btn-icon");
+    const btnLoading = submitBtn?.querySelector(".btn-loading");
+
+    /* ── Budget Pills ── */
+    const pills = form.querySelectorAll(".budget-pill");
+    const budgetHidden = document.getElementById("orcamento");
+    pills.forEach(pill => {
+      pill.addEventListener("click", () => {
+        pills.forEach(p => p.classList.remove("selected"));
+        pill.classList.add("selected");
+        if (budgetHidden) budgetHidden.value = pill.dataset.value;
+      });
+    });
+
+    /* ── Campos condicionais por tipo de assunto ── */
+    const assuntoSel = document.getElementById("assunto");
+    const budgetGroup = document.getElementById("budget-group");
+    const prazoGroup = document.getElementById("prazo-group");
+
+    assuntoSel?.addEventListener("change", () => {
+      const isProject = assuntoSel.value === "Projeto Freelance";
+      if (budgetGroup) budgetGroup.style.display = isProject ? "" : "none";
+      if (prazoGroup) prazoGroup.style.display = isProject ? "" : "none";
+    });
+
+    /* ── Contador de caracteres ── */
+    const textarea = document.getElementById("mensagem");
+    const charCount = document.getElementById("char-count");
+    const charWrap = form.querySelector(".char-counter");
+    const MAX_CHARS = 800;
+
+    textarea?.addEventListener("input", () => {
+      const len = textarea.value.length;
+      if (charCount) charCount.textContent = len;
+      if (charWrap) {
+        charWrap.classList.toggle("warn", len > MAX_CHARS * 0.85 && len <= MAX_CHARS);
+        charWrap.classList.toggle("over", len > MAX_CHARS);
+      }
+    });
+
+    /* ── Telefone: somente números, máx 11 dígitos ── */
+    const phoneInput = document.getElementById("telefone");
+    const MAX_PHONE_DIGITS = 11; // DDD (2) + 9 dígitos
+
+    if (phoneInput) {
+      // Bloqueia teclas não numéricas (permite controles de navegação)
+      phoneInput.addEventListener("keydown", (e) => {
+        const allowed = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab", "Home", "End"];
+        if (allowed.includes(e.key)) return;
+        if (!/^\d$/.test(e.key)) { e.preventDefault(); return; }
+        // Bloqueia digitação após atingir o limite
+        if (phoneInput.value.replace(/\D/g, "").length >= MAX_PHONE_DIGITS) {
+          e.preventDefault();
+        }
+      });
+
+      // Bloqueia colar com letras e trunca se passar do limite
+      phoneInput.addEventListener("paste", (e) => {
+        e.preventDefault();
+        const pasted = (e.clipboardData || window.clipboardData).getData("text");
+        const onlyDigits = pasted.replace(/\D/g, "").slice(0, MAX_PHONE_DIGITS);
+        const current = phoneInput.value.replace(/\D/g, "");
+        phoneInput.value = (current + onlyDigits).slice(0, MAX_PHONE_DIGITS);
+      });
+
+      // Sanitiza qualquer valor que chegue por outros meios (autofill, etc.)
+      phoneInput.addEventListener("input", () => {
+        phoneInput.value = phoneInput.value.replace(/\D/g, "").slice(0, MAX_PHONE_DIGITS);
+      });
+    }
+
+    /* ── Helpers de validação ── */
+    function setError(fieldId, errId, msg) {
+      const field = document.getElementById(fieldId);
+      const err = document.getElementById(errId);
+      if (field) field.classList.add("invalid");
+      if (err) { err.textContent = msg; err.classList.add("visible"); }
+      return false;
+    }
+    function clearError(fieldId, errId) {
+      const field = document.getElementById(fieldId);
+      const err = document.getElementById(errId);
+      if (field) field.classList.remove("invalid");
+      if (err) { err.textContent = ""; err.classList.remove("visible"); }
+    }
+    function clearAllErrors() {
+      [
+        ["nome", "err-nome"],
+        ["email", "err-email"],
+        ["telefone", "err-telefone"],
+        ["assunto", "err-assunto"],
+        ["mensagem", "err-mensagem"],
+      ].forEach(([fId, eId]) => clearError(fId, eId));
+    }
+
+    // Limpa erro ao interagir com o campo
+    ["nome", "email", "mensagem", "telefone"].forEach(id => {
+      document.getElementById(id)?.addEventListener("input", () => clearError(id, `err-${id}`));
+    });
+    assuntoSel?.addEventListener("change", () => clearError("assunto", "err-assunto"));
+
+    /* ── Validação completa ── */
+    function validate() {
+      clearAllErrors();
+      let valid = true;
+
+      const nome = document.getElementById("nome")?.value.trim();
+      const email = document.getElementById("email")?.value.trim();
+      const assunto = assuntoSel?.value;
+      const msg = textarea?.value.trim();
+      const phone = phoneInput?.value.trim();
+
+      /* Nome */
+      if (!nome)
+        valid = setError("nome", "err-nome", "Por favor, informe seu nome.");
+
+      /* E-mail */
+      if (!email) {
+        valid = setError("email", "err-email", "Por favor, informe seu e-mail.") && valid;
+      } else {
+        const emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+        const blockedDomains = [
+          "mailinator.com", "tempmail.com", "guerrillamail.com",
+          "10minutemail.com", "throwam.com", "yopmail.com",
+          "trashmail.com", "sharklasers.com", "dispostable.com",
+        ];
+        const domain = email.split("@")[1]?.toLowerCase();
+
+        if (!emailRegex.test(email)) {
+          valid = setError("email", "err-email", "E-mail inválido.") && valid;
+        } else if (email.includes("..")) {
+          valid = setError("email", "err-email", "E-mail inválido (pontos consecutivos).") && valid;
+        } else if (email.startsWith(".") || email.includes(".@")) {
+          valid = setError("email", "err-email", "E-mail inválido.") && valid;
+        } else if (blockedDomains.includes(domain)) {
+          valid = setError("email", "err-email", "Por favor, use um e-mail real.") && valid;
+        }
+      }
+
+      if (phone && phone.length > 0) {
+        const digits = phone.replace(/\D/g, "");
+        if (digits.length < 10 || digits.length > 11) {
+          valid = setError("telefone", "err-telefone", "Telefone inválido (10 ou 11 dígitos com DDD).") && valid;
+        } else if (digits.length === 11 && digits[2] !== "9") {
+          valid = setError("telefone", "err-telefone", "Celular com 11 dígitos deve ter 9 após o DDD.") && valid;
+        }
+     }
+
+      /* Assunto */
+      if (!assunto)
+        valid = setError("assunto", "err-assunto", "Selecione o tipo de assunto.") && valid;
+
+      /* Mensagem */
+      if (!msg || msg.length < 10)
+        valid = setError("mensagem", "err-mensagem", "Mensagem muito curta (mín. 10 caracteres).") && valid;
+      else if (msg.length > MAX_CHARS)
+        valid = setError("mensagem", "err-mensagem", `Máximo de ${MAX_CHARS} caracteres.`) && valid;
+
+      return valid;
+    }
+
+    /* ── Estado de loading ── */
+    function setLoading(on) {
+      if (!submitBtn) return;
+      submitBtn.disabled = on;
+      if (btnText) btnText.style.display = on ? "none" : "";
+      if (btnIcon) btnIcon.style.display = on ? "none" : "";
+      if (btnLoading) btnLoading.style.display = on ? "" : "none";
+    }
+
+    /* ── Tela de sucesso ── */
+    function showSuccess() {
+      form.style.display = "none";
+
+      const el = document.createElement("div");
+      el.className = "contact-form form-success show";
+      el.innerHTML = `
+        <div class="success-icon">✅</div>
+        <h3>Mensagem enviada!</h3>
+        <p>Obrigado pelo contato, ${document.getElementById("nome")?.value.trim().split(" ")[0] || ""}!<br>
+           Responderei em até 24h nos dias úteis.</p>
+        <button class="btn-reset" type="button">Enviar outra mensagem</button>
+      `;
+      form.parentNode.insertBefore(el, form.nextSibling);
+
+      el.querySelector(".btn-reset")?.addEventListener("click", () => {
+        el.remove();
+        form.reset();
+        if (charCount) charCount.textContent = "0";
+        if (budgetHidden) budgetHidden.value = "";
+        pills.forEach(p => p.classList.remove("selected"));
+        if (budgetGroup) budgetGroup.style.display = "none";
+        if (prazoGroup) prazoGroup.style.display = "none";
+        clearAllErrors();
+        form.style.display = "";
+      });
+    }
+
+    /* ── Fallback WhatsApp (usado se EmailJS falhar) ── */
+    function fallbackWhatsApp(params) {
+      const txt = [
+        `📩 *Contato pelo Portfólio!*`,
+        ``,
+        `*Nome:* ${params.from_name}`,
+        `*E-mail:* ${params.reply_to}`,
+        params.company && params.company !== "—" ? `*Empresa:* ${params.company}` : null,
+        params.phone && params.phone !== "—" ? `*Telefone:* ${params.phone}` : null,
+        `*Assunto:* ${params.subject_type}`,
+        params.budget && params.budget !== "—" ? `*Orçamento:* ${params.budget}` : null,
+        params.deadline && params.deadline !== "—" ? `*Prazo:* ${params.deadline}` : null,
+        params.source && params.source !== "—" ? `*Origem:* ${params.source}` : null,
+        ``,
+        `*Mensagem:*`,
+        params.message,
+      ].filter(l => l !== null).join("\n");
+
+      window.open(`https://wa.me/5517981568889?text=${encodeURIComponent(txt)}`, "_blank", "noopener");
+    }
+
+    /* ── Submit ── */
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!validate()) return;
+
+      setLoading(true);
+
+      const templateParams = {
+        from_name: document.getElementById("nome")?.value.trim() || "",
+        reply_to: document.getElementById("email")?.value.trim() || "",
+        company: document.getElementById("empresa")?.value.trim() || "—",
+        phone: phoneInput?.value.trim() || "—",
+        subject_type: assuntoSel?.value || "—",
+        budget: budgetHidden?.value || "—",
+        deadline: document.getElementById("prazo")?.value || "—",
+        source: document.getElementById("origem")?.value || "—",
+        message: textarea?.value.trim() || "",
+      };
+
+      try {
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+        setLoading(false);
+        showSuccess();
+        showToast("Mensagem enviada! 🎉", "success");
+      } catch (err) {
+        setLoading(false);
+        console.error("EmailJS error:", err);
+        showToast("E-mail falhou — redirecionando para WhatsApp 📱", "warning");
+        setTimeout(() => fallbackWhatsApp(templateParams), 900);
+      }
+    });
+
+  }); /* fim waitForEmailJS */
+})(); /* fim IIFE */
