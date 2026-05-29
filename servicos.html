@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Serviços · Kaike Oliveira — Desenvolvedor Web</title>
   <meta name="description"
-    content="Precisa de um site, sistema ou plataforma? Eu desenvolvo soluções digitais sob medida para empresas e empreendedores." />
+    content="Precisa de um site, sistema ou plataforma? Desenvolvo soluções digitais sob medida para empresas e empreendedores." />
   <link
     href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
     rel="stylesheet" />
@@ -140,6 +140,10 @@
       animation: fadeUp .8s .25s forwards;
     }
 
+    :root:not([data-theme="dark"]) .hero-com h1 {
+      color: var(--text);
+    }
+
     .hero-com h1 span {
       color: var(--accent);
     }
@@ -153,6 +157,10 @@
       margin: 0 auto 2.5rem;
       opacity: 0;
       animation: fadeUp .8s .42s forwards;
+    }
+
+    :root:not([data-theme="dark"]) .hero-com-sub {
+      color: var(--muted);
     }
 
     .hero-com-actions {
@@ -183,8 +191,12 @@
       transition: color var(--tr);
     }
 
+    :root:not([data-theme="dark"]) .hero-com-social a {
+      color: var(--muted);
+    }
+
     .hero-com-social a:hover {
-      color: #fff;
+      color: var(--accent);
     }
 
     /* ── STATS STRIP ── */
@@ -576,6 +588,10 @@
       overflow: hidden;
     }
 
+    :root:not([data-theme="dark"]) .contact-com-section {
+      background: var(--bg-alt);
+    }
+
     .contact-com-section .contact-bg {
       position: absolute;
       inset: 0;
@@ -599,6 +615,12 @@
       backdrop-filter: blur(12px);
     }
 
+    :root:not([data-theme="dark"]) .contact-com-form {
+      background: var(--bg);
+      border-color: var(--border-s);
+      box-shadow: var(--shadow-md);
+    }
+
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -619,6 +641,10 @@
       text-transform: uppercase;
     }
 
+    :root:not([data-theme="dark"]) .form-label {
+      color: var(--muted);
+    }
+
     .form-input {
       background: rgba(255, 255, 255, .07);
       border: 1px solid rgba(255, 255, 255, .12);
@@ -632,8 +658,18 @@
       resize: vertical;
     }
 
+    :root:not([data-theme="dark"]) .form-input {
+      background: var(--bg-alt);
+      border-color: var(--border-s);
+      color: var(--text);
+    }
+
     .form-input::placeholder {
       color: rgba(255, 255, 255, .22);
+    }
+
+    :root:not([data-theme="dark"]) .form-input::placeholder {
+      color: var(--light);
     }
 
     .form-input:focus {
@@ -641,9 +677,19 @@
       background: rgba(59, 124, 244, .07);
     }
 
+    :root:not([data-theme="dark"]) .form-input:focus {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
     .form-input option {
       background: #0d1a38;
       color: #fff;
+    }
+
+    :root:not([data-theme="dark"]) .form-input option {
+      background: #fff;
+      color: var(--text);
     }
 
     .form-btn {
@@ -665,6 +711,35 @@
       background: #2560d4;
       transform: translateY(-2px);
       box-shadow: 0 10px 28px rgba(59, 124, 244, .4);
+    }
+
+    /* Seção de contato: textos brancos no modo claro precisam de override */
+    :root:not([data-theme="dark"]) .contact-com-section .section-title {
+      color: var(--text);
+    }
+
+    :root:not([data-theme="dark"]) .contact-com-section .section-sub {
+      color: var(--muted);
+    }
+
+    :root:not([data-theme="dark"]) .contact-com-section .section-label {
+      color: var(--accent);
+    }
+
+    :root:not([data-theme="dark"]) .contact-com-section .c-label {
+      color: var(--muted);
+    }
+
+    :root:not([data-theme="dark"]) .contact-com-section .c-val {
+      color: var(--text);
+    }
+
+    :root:not([data-theme="dark"]) .contact-com-section p[style] {
+      color: var(--muted) !important;
+    }
+
+    :root:not([data-theme="dark"]) .contact-com-section strong[style] {
+      color: var(--text) !important;
     }
 
     @media(max-width:900px) {
@@ -700,7 +775,7 @@
     <a href="index.html">Acessar portfólio →</a>
   </div>
 
-  <!-- NAV -->
+  <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">Kaike<span>.Oliveira</span></a>
@@ -718,10 +793,10 @@
           <circle cx="12" cy="12" r="5" />
           <line x1="12" y1="1" x2="12" y2="3" />
           <line x1="12" y1="21" x2="12" y2="23" />
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
           <line x1="1" y1="12" x2="3" y2="12" />
           <line x1="21" y1="12" x2="23" y2="12" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
           <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
           <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
         </svg>
@@ -787,11 +862,11 @@
     </div>
   </div>
 
-  <!-- SOBRE -->
+  <!-- SOBRE / DIFERENCIAIS -->
   <section id="sobre" class="section">
     <div class="container">
       <div class="section-head reveal">
-        <span class="section-label">Quem está por trás</span>
+        <span class="section-label">Por que me contratar</span>
         <h2 class="section-title">Por que trabalhar <span>comigo?</span></h2>
         <p class="section-sub">Mais do que código — entrego soluções pensadas de ponta a ponta, do design ao banco de
           dados.</p>
@@ -825,7 +900,7 @@
         <div class="dif-card reveal">
           <div class="dif-icon">🚀</div>
           <h3>Mentalidade startup</h3>
-          <p>Criador da GRAI EcoSystems — entendo o que é construir produto do zero com visão de negócio.</p>
+          <p>Criador da Nexus — sei o que é construir produto do zero com visão de negócio.</p>
         </div>
       </div>
     </div>
@@ -876,7 +951,8 @@
           <div class="service-name">Manutenção & Melhorias</div>
           <p class="service-desc">Correções, atualizações, otimizações de performance e melhorias no seu site ou sistema
             existente.</p>
-          <div class="service-tags"><span>PHP</span><span>HTML/CSS</span><span>C#</span><span>MySQL</span></div>
+          <div class="service-tags"><span>PHP</span><span>HTML5</span><span>CSS3</span><span>C#</span><span>MySQL</span>
+          </div>
         </div>
         <div class="service-card reveal">
           <div class="service-icon">🎨</div>
@@ -908,13 +984,12 @@
         </div>
         <div class="process-step reveal">
           <h3>Design & Prototipagem</h3>
-          <p>Desenvolvimento inicial da identidade visual e estrutura da interface da plataforma, organizando ideias,
-            fluxos e experiência do usuário antes da etapa de desenvolvimento.</p>
+          <p>Desenvolvimento inicial da identidade visual e estrutura da interface, organizando ideias,
+            fluxos e experiência do usuário antes do desenvolvimento.</p>
         </div>
         <div class="process-step reveal">
           <h3>Desenvolvimento</h3>
-          <p>Codificação completa: Front-end, Back-end e Banco de dados. Com entregas parciais para acompanhamento.
-          </p>
+          <p>Codificação completa: Front-end, Back-end e Banco de dados. Com entregas parciais para acompanhamento.</p>
         </div>
         <div class="process-step reveal">
           <h3>Revisão & Ajustes</h3>
@@ -928,7 +1003,7 @@
     </div>
   </section>
 
-  <!-- PROJETOS -->
+  <!-- PROJETOS EM DESTAQUE -->
   <section id="projetos" class="section alt-bg">
     <div class="container">
       <div class="section-head reveal">
@@ -942,11 +1017,12 @@
               class="com-proj-label">Startup</span></div>
           <div class="com-proj-body">
             <span class="com-proj-cat">Plataforma Web · Sustentabilidade</span>
-            <h3>GRAI EcoSystems</h3>
+            <h3>Nexus</h3>
             <p>Plataforma completa para conectar empresas geradoras de resíduos com compradores de materiais
               recicláveis. Dashboard, cadastros e sistema de pedidos integrado.</p>
             <div class="com-proj-result">✓ Sistema funcional em produção</div>
-            <div class="com-proj-techs"><span>HTML/CSS/JS</span><span>PHP</span><span>MySQL</span></div>
+            <div class="com-proj-techs">
+              <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>PHP</span><span>MySQL</span></div>
           </div>
         </div>
         <div class="com-proj-card reveal">
@@ -958,7 +1034,8 @@
             <p>Sistema de presença com autenticação, níveis de acesso (admin/professor/aluno), dashboard analítico e
               integração com banco de dados.</p>
             <div class="com-proj-result">✓ Projeto final premiado</div>
-            <div class="com-proj-techs"><span>PHP</span><span>MySQL</span><span>HTML/CSS/JS</span></div>
+            <div class="com-proj-techs">
+              <span>PHP</span><span>MySQL</span><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div>
           </div>
         </div>
         <div class="com-proj-card reveal">
@@ -970,7 +1047,8 @@
             <p>Site institucional com design moderno, animações CSS, formulário integrado ao WhatsApp e identidade
               visual completa para duas marcas.</p>
             <div class="com-proj-result">✓ Aprovado com destaque no TCC</div>
-            <div class="com-proj-techs"><span>HTML/CSS</span><span>Bootstrap</span><span>JS</span></div>
+            <div class="com-proj-techs"><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Bootstrap</span>
+            </div>
             <a href="https://kaikeeliass.github.io/Site-Institucional---TCC/" target="_blank" class="com-proj-link">Ver
               ao vivo →</a>
           </div>
@@ -1027,7 +1105,7 @@
           <div
             style="background:rgba(59,124,244,.1);border:1px solid rgba(59,124,244,.2);border-radius:var(--radius);padding:1.5rem">
             <p style="font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.8;margin-bottom:.5rem">💡 <strong
-                style="color:rgba(255,255,255,.8)">Dica:</strong> Para uma proposta mais rápida e precisa, me informe no
+                style="color:rgba(255,255,255,.8)">Dica:</strong> Para uma proposta mais rápida e precisa, informe no
               formulário o tipo de projeto, prazo desejado e se tem alguma referência visual.</p>
           </div>
         </div>
@@ -1069,7 +1147,7 @@
     <div class="container footer-inner">
       <span class="footer-logo">Kaike<span>.Oliveira</span></span>
       <p class="footer-copy">© <span id="year"></span> Kaike Oliveira · Todos os direitos reservados. · <a
-          href="index.html" style="color:rgba(255,255,255,.35);text-decoration:none">Ver portfólio</a></p>
+          href="index.html" style="color:var(--muted);text-decoration:none">Ver portfólio</a></p>
       <a href="#hero" class="back-top" aria-label="Voltar ao topo">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="18 15 12 9 6 15" />
