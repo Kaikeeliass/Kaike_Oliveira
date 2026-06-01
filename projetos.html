@@ -2,15 +2,17 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Projetos que desenvolvi ao longo da minha jornada em tecnologia.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Projetos que desenvolvi ao longo da minha jornada em tecnologia." />
   <title>Projetos · Kaike Oliveira</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/projetos.css">
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/projetos.css" />
 </head>
 
 <body>
@@ -18,7 +20,6 @@
   <div id="cursor"></div>
   <div id="cursor-ring"></div>
 
-  <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">Kaike<span>.Oliveira</span></a>
@@ -60,7 +61,6 @@
     </div>
   </nav>
 
-  <!-- HEADER -->
   <header class="proj-header">
     <div class="proj-header-bg">
       <div class="hero-grid-lines"></div>
@@ -69,14 +69,13 @@
     <div class="container proj-header-inner">
       <span class="section-label" style="opacity:0;animation:fadeUp .7s .1s forwards">O que eu construí</span>
       <h1 style="opacity:0;animation:fadeUp .8s .25s forwards">Meus <span>Projetos</span></h1>
-      <p style="opacity:0;animation:fadeUp .8s .4s forwards; text-align:center;">
+      <p style="opacity:0;animation:fadeUp .8s .4s forwards;text-align:center;">
         Trabalhos desenvolvidos ao longo da minha jornada em tecnologia — de exercícios de aprendizado a sistemas
         completos.
       </p>
     </div>
   </header>
 
-  <!-- FILTRO -->
   <div class="filter-bar">
     <div class="container">
       <div class="filter-btns">
@@ -88,7 +87,6 @@
     </div>
   </div>
 
-  <!-- GRID DE PROJETOS -->
   <section class="proj-section">
     <div class="container">
       <div class="proj-grid">
@@ -127,7 +125,7 @@
 
         <div class="proj-card reveal" data-cat="site">
           <div class="proj-thumb" style="background:radial-gradient(circle at top,#3b2a12,#161616,#090909)">
-            <span class="proj-emoji"><img src="Prancheta 4@4x.png" alt="logo Kevin"></span>
+            <span class="proj-emoji"><img src="Prancheta 4@4x.png" alt="logo Kevin" /></span>
             <span class="proj-badge site">Site</span>
           </div>
           <div class="proj-body">
@@ -150,8 +148,8 @@
         </div>
 
         <div class="proj-card reveal" data-cat="sistema">
-          <div class="proj-thumb" style="background: radial-gradient(circle at 50% 0%, #004d73, #001a2c)">
-            <span class="proj-emoji"><img class="img_tri" src="image.jpg" alt="Trivium Finance"></span>
+          <div class="proj-thumb" style="background:radial-gradient(circle at 50% 0%, #004d73, #001a2c)">
+            <span class="proj-emoji"><img class="img_tri" src="image.jpg" alt="Trivium Finance" /></span>
             <span class="proj-badge sistema">Sistema</span>
           </div>
           <div class="proj-body">
@@ -276,7 +274,7 @@
   <footer class="footer">
     <div class="container footer-inner">
       <span class="footer-logo">Kaike<span>.Oliveira</span></span>
-      <p class="footer-copy">© <span class="js-year"></span> Kaike Oliveira · Todos os direitos reservados.</p>
+      <p class="footer-copy">© <span id="year"></span> Kaike Oliveira · Todos os direitos reservados.</p>
       <a href="#" class="back-top" aria-label="Voltar ao topo">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="18 15 12 9 6 15" />

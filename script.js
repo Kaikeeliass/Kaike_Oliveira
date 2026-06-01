@@ -1,10 +1,8 @@
-
-/* ─── 1. ANO NO RODAPÉ ─── */
 document.querySelectorAll("[id='year'], .js-year").forEach(el => {
   el.textContent = new Date().getFullYear();
 });
 
-/* ─── 2. TEMA CLARO / ESCURO ─── */
+/* ── TEMA CLARO / ESCURO ── */
 const html = document.documentElement;
 const themeToggleBtn = document.getElementById("theme-toggle");
 
@@ -21,7 +19,7 @@ if (themeToggleBtn) {
   });
 }
 
-/* ─── 3. NAVBAR scroll + hamburger ─── */
+/* ── NAVBAR scroll + hamburger ── */
 const navbar = document.getElementById("navbar");
 window.addEventListener("scroll", () => {
   navbar?.classList.toggle("scrolled", window.scrollY > 40);
@@ -44,7 +42,7 @@ if (hamburger && mobileMenu) {
   });
 }
 
-/* ─── 4. CURSOR PERSONALIZADO ─── */
+/* ── CURSOR PERSONALIZADO ── */
 const cursor = document.getElementById("cursor");
 const cursorRing = document.getElementById("cursor-ring");
 
@@ -73,7 +71,7 @@ if (cursor && cursorRing && window.matchMedia("(pointer: fine)").matches) {
   });
 }
 
-/* ─── 5. INTERSECTION OBSERVER — reveal + skill bars + counters ─── */
+/* ── INTERSECTION OBSERVER — reveal + skill bars + counters ── */
 const revealObs = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
@@ -106,16 +104,16 @@ document.querySelectorAll(
   ".services-grid .service-card, .projects-grid .project-card, .proj-grid .proj-card"
 ).forEach((el, i) => { el.style.transitionDelay = (i * 0.08) + "s"; });
 
-/* ─── 6. EFEITO DIGITAÇÃO — hero portfólio ─── */
+/* ── EFEITO DIGITAÇÃO — hero portfólio ── */
 const typingTarget = document.getElementById("typing-target");
 if (typingTarget) {
   const texts = [
     "Transformo ideias em sistemas reais — do banco de dados à interface.",
     "Desenvolvedor Full-Stack em formação no IFSP.",
-    "Criador da startup GRAI EcoSystems.",
+    "Criador da startup Nexus.",
     "Empreendedor movido por tecnologia e impacto.",
   ];
-  let ti = 0, ci = 0, del = false, paused = false, started = false; // FLAG: evita múltiplos disparos
+  let ti = 0, ci = 0, del = false, paused = false, started = false;
 
   const type = () => {
     if (paused) return;
@@ -140,7 +138,7 @@ if (typingTarget) {
   if (heroEl) {
     new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        if (e.isIntersecting && !started) { // Dispara somente uma vez
+        if (e.isIntersecting && !started) {
           started = true;
           type();
         }
@@ -151,7 +149,7 @@ if (typingTarget) {
   }
 }
 
-/* ─── 7. TABS hard/soft skills ─── */
+/* ── TABS hard/soft skills ── */
 document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
@@ -165,7 +163,7 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
   });
 });
 
-/* ─── 8. FILTRO DE PROJETOS ─── */
+/* ── FILTRO DE PROJETOS ── */
 const filterBtns = document.querySelectorAll(".filter-btn");
 const projCards = document.querySelectorAll(".proj-card[data-cat]");
 
@@ -190,7 +188,7 @@ filterBtns.forEach(btn => {
   });
 });
 
-/* ─── 9. TOAST ─── */
+/* ── TOAST ── */
 function showToast(msg, type = "info") {
   let wrap = document.getElementById("_toast_wrap");
   if (!wrap) {
@@ -210,7 +208,7 @@ function showToast(msg, type = "info") {
   }, 3600);
 }
 
-/* ─── 10. LINK ATIVO NA NAVBAR por scroll ─── */
+/* ── LINK ATIVO NA NAVBAR por scroll ── */
 const allSections = document.querySelectorAll("section[id], header[id]");
 const allNavLinks = document.querySelectorAll(".nav-links a, .mobile-menu a");
 
@@ -227,7 +225,7 @@ allSections.forEach(s => {
   }, { threshold: 0.42 }).observe(s);
 });
 
-/* ─── 11. SCROLL SUAVE — âncoras na mesma página ─── */
+/* ── SCROLL SUAVE — âncoras na mesma página ── */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener("click", e => {
     const tgt = document.querySelector(anchor.getAttribute("href"));
@@ -235,7 +233,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-/* ─── 12. BOTÃO VOLTAR AO TOPO ─── */
+/* ── BOTÃO VOLTAR AO TOPO ── */
 document.querySelectorAll(".back-top").forEach(btn => {
   btn.addEventListener("click", e => {
     e.preventDefault();
@@ -243,7 +241,7 @@ document.querySelectorAll(".back-top").forEach(btn => {
   });
 });
 
-/* ─── 13. MODE BANNER — esconde ao chegar no footer ─── */
+/* ── MODE BANNER — esconde ao chegar no footer ── */
 const banner = document.querySelector(".mode-banner");
 const footer = document.querySelector(".footer");
 if (banner && footer) {
@@ -253,10 +251,7 @@ if (banner && footer) {
   ).observe(footer);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   ─── 14. FORMULÁRIO DE CONTATO — EmailJS ───
-   ═══════════════════════════════════════════════════════════════ */
-
+/* ── FORMULÁRIO DE CONTATO — EmailJS ── */
 (function initContactForm() {
   const EMAILJS_PUBLIC_KEY = "uikqMZyeHWmzNWxR6";
   const EMAILJS_SERVICE_ID = "service_ucfvv6i";
@@ -282,7 +277,6 @@ if (banner && footer) {
     const btnIcon = submitBtn?.querySelector(".btn-icon");
     const btnLoading = submitBtn?.querySelector(".btn-loading");
 
-    /* ── Budget Pills ── */
     const pills = form.querySelectorAll(".budget-pill");
     const budgetHidden = document.getElementById("orcamento");
     pills.forEach(pill => {
@@ -293,7 +287,6 @@ if (banner && footer) {
       });
     });
 
-    /* ── Campos condicionais por tipo de assunto ── */
     const assuntoSel = document.getElementById("assunto");
     const budgetGroup = document.getElementById("budget-group");
     const prazoGroup = document.getElementById("prazo-group");
@@ -304,7 +297,6 @@ if (banner && footer) {
       if (prazoGroup) prazoGroup.style.display = isProject ? "" : "none";
     });
 
-    /* ── Contador de caracteres ── */
     const textarea = document.getElementById("mensagem");
     const charCount = document.getElementById("char-count");
     const charWrap = form.querySelector(".char-counter");
@@ -319,23 +311,19 @@ if (banner && footer) {
       }
     });
 
-    /* ── Telefone: somente números, máx 11 dígitos ── */
     const phoneInput = document.getElementById("telefone");
-    const MAX_PHONE_DIGITS = 11; // DDD (2) + 9 dígitos
+    const MAX_PHONE_DIGITS = 11;
 
     if (phoneInput) {
-      // Bloqueia teclas não numéricas (permite controles de navegação)
       phoneInput.addEventListener("keydown", (e) => {
         const allowed = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab", "Home", "End"];
         if (allowed.includes(e.key)) return;
         if (!/^\d$/.test(e.key)) { e.preventDefault(); return; }
-        // Bloqueia digitação após atingir o limite
         if (phoneInput.value.replace(/\D/g, "").length >= MAX_PHONE_DIGITS) {
           e.preventDefault();
         }
       });
 
-      // Bloqueia colar com letras e trunca se passar do limite
       phoneInput.addEventListener("paste", (e) => {
         e.preventDefault();
         const pasted = (e.clipboardData || window.clipboardData).getData("text");
@@ -344,13 +332,11 @@ if (banner && footer) {
         phoneInput.value = (current + onlyDigits).slice(0, MAX_PHONE_DIGITS);
       });
 
-      // Sanitiza qualquer valor que chegue por outros meios (autofill, etc.)
       phoneInput.addEventListener("input", () => {
         phoneInput.value = phoneInput.value.replace(/\D/g, "").slice(0, MAX_PHONE_DIGITS);
       });
     }
 
-    /* ── Helpers de validação ── */
     function setError(fieldId, errId, msg) {
       const field = document.getElementById(fieldId);
       const err = document.getElementById(errId);
@@ -374,13 +360,11 @@ if (banner && footer) {
       ].forEach(([fId, eId]) => clearError(fId, eId));
     }
 
-    // Limpa erro ao interagir com o campo
     ["nome", "email", "mensagem", "telefone"].forEach(id => {
       document.getElementById(id)?.addEventListener("input", () => clearError(id, `err-${id}`));
     });
     assuntoSel?.addEventListener("change", () => clearError("assunto", "err-assunto"));
 
-    /* ── Validação completa ── */
     function validate() {
       clearAllErrors();
       let valid = true;
@@ -391,11 +375,9 @@ if (banner && footer) {
       const msg = textarea?.value.trim();
       const phone = phoneInput?.value.trim();
 
-      /* Nome */
       if (!nome)
         valid = setError("nome", "err-nome", "Por favor, informe seu nome.");
 
-      /* E-mail */
       if (!email) {
         valid = setError("email", "err-email", "Por favor, informe seu e-mail.") && valid;
       } else {
@@ -425,13 +407,11 @@ if (banner && footer) {
         } else if (digits.length === 11 && digits[2] !== "9") {
           valid = setError("telefone", "err-telefone", "Celular com 11 dígitos deve ter 9 após o DDD.") && valid;
         }
-     }
+      }
 
-      /* Assunto */
       if (!assunto)
         valid = setError("assunto", "err-assunto", "Selecione o tipo de assunto.") && valid;
 
-      /* Mensagem */
       if (!msg || msg.length < 10)
         valid = setError("mensagem", "err-mensagem", "Mensagem muito curta (mín. 10 caracteres).") && valid;
       else if (msg.length > MAX_CHARS)
@@ -440,7 +420,6 @@ if (banner && footer) {
       return valid;
     }
 
-    /* ── Estado de loading ── */
     function setLoading(on) {
       if (!submitBtn) return;
       submitBtn.disabled = on;
@@ -449,7 +428,6 @@ if (banner && footer) {
       if (btnLoading) btnLoading.style.display = on ? "" : "none";
     }
 
-    /* ── Tela de sucesso ── */
     function showSuccess() {
       form.style.display = "none";
 
@@ -477,7 +455,6 @@ if (banner && footer) {
       });
     }
 
-    /* ── Fallback WhatsApp (usado se EmailJS falhar) ── */
     function fallbackWhatsApp(params) {
       const txt = [
         `📩 *Contato pelo Portfólio!*`,
@@ -498,7 +475,6 @@ if (banner && footer) {
       window.open(`https://wa.me/5517981568889?text=${encodeURIComponent(txt)}`, "_blank", "noopener");
     }
 
-    /* ── Submit ── */
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!validate()) return;
@@ -530,5 +506,5 @@ if (banner && footer) {
       }
     });
 
-  }); /* fim waitForEmailJS */
-})(); /* fim IIFE */
+  });
+})();
