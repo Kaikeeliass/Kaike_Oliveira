@@ -1,4 +1,3 @@
-/* ── HEADER ── */
 .proj-header {
   padding-top: 68px;
   min-height: 42vh;
@@ -43,7 +42,6 @@
   line-height: 1.8;
 }
 
-/* ── FILTRO ── */
 .filter-bar {
   position: sticky;
   top: 68px;
@@ -90,21 +88,18 @@
   color: #fff;
 }
 
-/* ── SEÇÃO DE PROJETOS ── */
 .proj-section {
   padding: 3.5rem 0 6rem;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* ── GRID ── */
 .proj-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
   gap: 1.75rem;
 }
 
-/* ── CARDS ── */
 .proj-card {
   background: var(--bg-alt);
   border: 1px solid var(--border);
@@ -115,8 +110,7 @@
     transform var(--tr),
     box-shadow var(--tr),
     border-color var(--tr),
-    opacity 0.4s ease,
-    display 0s;
+    opacity 0.4s ease;
   display: flex;
   flex-direction: column;
 }
@@ -141,7 +135,11 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.25) 100%);
+  background: linear-gradient(
+    180deg,
+    transparent 50%,
+    rgba(0, 0, 0, 0.25) 100%
+  );
 }
 
 .proj-emoji {
@@ -255,7 +253,9 @@
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  transition: gap var(--tr), opacity var(--tr);
+  transition:
+    gap var(--tr),
+    opacity var(--tr);
   margin-top: auto;
 }
 
@@ -263,11 +263,6 @@
   gap: 0.7rem;
 }
 
-.proj-card[style*="display: none"] {
-  display: none !important;
-}
-
-/* ── RESPONSIVO ── */
 @media (max-width: 720px) {
   .proj-grid {
     grid-template-columns: 1fr;

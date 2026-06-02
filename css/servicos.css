@@ -19,14 +19,12 @@ svg {
 :root {
   --green: #2bad5b;
   --green-soft: rgba(6, 192, 74, 0.15);
-
   --space-xs: clamp(0.5rem, 1.5vw, 0.75rem);
   --space-sm: clamp(0.75rem, 2vw, 1rem);
   --space-md: clamp(1rem, 3vw, 1.75rem);
   --space-lg: clamp(1.5rem, 4vw, 2.5rem);
   --space-xl: clamp(2rem, 6vw, 4rem);
   --space-2xl: clamp(3rem, 8vw, 6rem);
-
   --text-xs: clamp(0.68rem, 1.8vw, 0.75rem);
   --text-sm: clamp(0.78rem, 2vw, 0.875rem);
   --text-base: clamp(0.875rem, 2.2vw, 1.1rem);
@@ -35,7 +33,6 @@ svg {
   --text-xl: clamp(1.2rem, 4vw, 1.75rem);
   --text-2xl: clamp(1.6rem, 5vw, 2.5rem);
   --text-hero: clamp(3rem, 6.5vw, 5.4rem);
-
   --touch-min: 44px;
 }
 
