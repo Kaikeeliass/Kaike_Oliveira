@@ -508,3 +508,27 @@ if (banner && footer) {
 
   });
 })();
+
+(function initExpFilter() {
+  const expFilterBtns = document.querySelectorAll(".exp-filter-btn");
+  const tlItems = document.querySelectorAll(".tl-item[data-cat]");
+  if (!expFilterBtns.length || !tlItems.length) return;
+  expFilterBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      expFilterBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const f = btn.dataset.filter;
+      tlItems.forEach(item => {
+        const show = f === "all" || item.dataset.cat === f;
+        if (show) {
+          item.classList.remove("hidden");
+          if (!item.classList.contains("visible")) {
+            revealObs.observe(item);
+          }
+        } else {
+          item.classList.add("hidden");
+        }
+      });
+    });
+  });
+})();
