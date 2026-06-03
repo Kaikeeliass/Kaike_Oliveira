@@ -409,7 +409,7 @@ if (banner && footer) {
           valid = setError("telefone", "err-telefone", "Celular com 11 dígitos deve ter 9 após o DDD.") && valid;
         }
       }
-
+      
       if (!assunto)
         valid = setError("assunto", "err-assunto", "Selecione o tipo de assunto.") && valid;
 
@@ -591,8 +591,8 @@ if (banner && footer) {
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const nome     = document.getElementById("csf-nome").value.trim();
-    const email    = document.getElementById("csf-email").value.trim();
+    const nome = document.getElementById("csf-nome").value.trim();
+    const email = document.getElementById("csf-email").value.trim();
     const mensagem = document.getElementById("csf-mensagem").value.trim();
 
     if (!nome || !email || !mensagem) {

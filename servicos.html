@@ -370,7 +370,7 @@
         <div class="modal-header-text">
           <span class="modal-label">Vamos criar algo incrível</span>
           <h2 id="modal-title">Solicite seu orçamento</h2>
-          <p>Respondo em até 24 horas. Sem compromisso.</p>
+          <!-- <p>Respondo em até 3 dias úteis.</p> -->
         </div>
         <button class="modal-close js-close-modal" aria-label="Fechar modal">✕</button>
       </div>
@@ -401,7 +401,7 @@
             <div class="form-group">
               <label for="telefone"> WhatsApp / Telefone</label>
               <input type="tel" id="telefone" name="phone" inputmode="numeric" placeholder="(17) 99999-9999"
-                autocomplete="tel" />
+                autocomplete="tel" maxlength="15">
               <span class="field-error" id="err-telefone"></span>
             </div>
           </div>
@@ -416,7 +416,7 @@
                 <option value="Landing Page">🚀 Landing Page</option>
                 <option value="Sistema Web">⚙️ Sistema Web (login, dashboard, CRUD)</option>
                 <option value="Sistema Desktop">🖥️ Sistema Desktop</option>
-                <option value="API / Back-end">🔌 API / Back-end</option>
+                <!-- <option value="API / Back-end">🔌 API / Back-end</option> -->
                 <option value="Manutenção / Melhoria">🔧 Manutenção ou Melhoria de Projeto</option>
                 <option value="Dúvida Técnica">🛠️ Dúvida Técnica</option>
                 <option value="Projeto Freelance">💼 Projeto Freelance</option>
@@ -490,8 +490,21 @@
       </div>
     </div>
   </div>
-
   <script src="script.js"></script>
+  <script>
+  const campoTelefone = document.getElementById('telefone');
+  
+  if (campoTelefone) {
+    campoTelefone.addEventListener('input', function (evento) {
+      let valor = evento.target.value;
+      valor = valor.replace(/\D/g, '');
+      valor = valor.substring(0, 11);
+      valor = valor.replace(/^(\d{2})(\d)/g, '($1) $2');
+      valor = valor.replace(/(\d)(\d{4})$/, '$1-$2');
+      evento.target.value = valor;
+    });
+  }
+</script>
 </body>
 
 </html>

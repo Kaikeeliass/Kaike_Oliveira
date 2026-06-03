@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="css/projetos.css" />
   <link rel="stylesheet" href="css/servicos.css">
   <link rel="stylesheet" href="css/modal.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 </head>
 
 <body>
@@ -358,8 +359,11 @@
           <div class="proj-body">
             <span class="proj-cat">Institucional · TCC 2025</span>
             <h2>Smart Office & Cantinho do Valle</h2>
-            <p>Site institucional com design moderno, animações, formulário integrado ao WhatsApp e identidade visual
-              das duas marcas. Aprovado com destaque no TCC.</p>
+            <p>Site institucional desenvolvido como projeto de TCC para apresentar a Smart Office e o Cantinho do Valle
+              em uma plataforma digital moderna e acessível. O projeto reuniu informações sobre os serviços, valores e
+              identidade das marcas, além de facilitar o contato com clientes por meio de uma experiência visual
+              intuitiva e profissional.
+            </p>
             <div class="proj-techs">
               <span>HTML5</span><span>CSS3</span><span>JS</span>
             </div>
@@ -387,7 +391,7 @@
         <button class="exp-filter-btn active" data-filter="all">Todos</button>
         <button class="exp-filter-btn" data-filter="profissional">💼 Profissional</button>
         <button class="exp-filter-btn" data-filter="ensino">🎓 Ensino</button>
-        <button class="exp-filter-btn" data-filter="curso">📚 Cursos</button>
+        <button class="exp-filter-btn" data-filter="curso">📚 Cursos / Projetos</button>
       </div>
       <div class="timeline">
 
@@ -449,7 +453,7 @@
         <div class="tl-item reveal" data-cat="curso">
           <div class="tl-dot"></div>
           <div class="tl-content">
-            <span class="tl-cat-badge curso">📚 Cursos</span>
+            <span class="tl-cat-badge curso">📚 Projeto</span>
             <span class="tl-date">Projeto • Jan 2026 – Jun 2026</span>
             <h3>TRIVIUM Finance • Projeto Integrador - IFSP</h3>
             <p>Plataforma web de gestão financeira pessoal desenvolvida como projeto integrador do IFSP. O sistema
@@ -513,7 +517,7 @@
         <div class="tl-item reveal" data-cat="curso">
           <div class="tl-dot"></div>
           <div class="tl-content">
-            <span class="tl-cat-badge curso">📚 Cursos</span>
+            <span class="tl-cat-badge curso">📚 Projeto</span>
             <span class="tl-date">Projeto • Ago 2025 – Dez 2025</span>
             <h3>Projeto Clínica Médica • IFSP</h3>
             <p>Desenvolvi um sistema desktop para simulação do funcionamento de uma clínica médica, em equipe de três
@@ -663,8 +667,8 @@
 
           <div class="csf-group">
             <label for="csf-mensagem">Mensagem *</label>
-            <textarea id="csf-mensagem" name="mensagem" rows="4"
-              placeholder="Sobre o que quer conversar? Projeto, oportunidade, parceria…" required></textarea>
+            <textarea id="csf-mensagem" name="mensagem" rows="4" placeholder="Sobre o que quer conversar?"
+              required></textarea>
           </div>
 
           <p class="csf-whatsapp-note">📲 Você será redirecionado para o WhatsApp com a mensagem preenchida.</p>
@@ -702,7 +706,7 @@
         <div class="modal-header-text">
           <span class="modal-label">Vamos criar algo incrível</span>
           <h2 id="modal-title">Solicite seu orçamento</h2>
-          <p>Respondo em até 3 dias úteis.</p>
+          <!-- <p>Respondo em até 3 dias úteis.</p> -->
         </div>
         <button class="modal-close js-close-modal" aria-label="Fechar modal">✕</button>
       </div>
@@ -722,7 +726,6 @@
                 autocomplete="organization" />
             </div>
           </div>
-
           <div class="form-row">
             <div class="form-group">
               <label for="email"> E-mail <span class="required">*</span></label>
@@ -733,14 +736,13 @@
             <div class="form-group">
               <label for="telefone"> WhatsApp / Telefone</label>
               <input type="tel" id="telefone" name="phone" inputmode="numeric" placeholder="(17) 99999-9999"
-                autocomplete="tel" />
+                autocomplete="tel" maxlength="15">
               <span class="field-error" id="err-telefone"></span>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="assunto"> Tipo de Assunto <span
-                class="required">*</span></label>
+            <label for="assunto"> Tipo de Assunto <span class="required">*</span></label>
             <div class="select-wrapper">
               <select id="assunto" name="subject_type" required>
                 <option value="" disabled selected>Selecione o tipo de contato…</option>
@@ -748,7 +750,7 @@
                 <option value="Landing Page">🚀 Landing Page</option>
                 <option value="Sistema Web">⚙️ Sistema Web (login, dashboard, CRUD)</option>
                 <option value="Sistema Desktop">🖥️ Sistema Desktop</option>
-                <option value="API / Back-end">🔌 API / Back-end</option>
+                <!-- <option value="API / Back-end">🔌 API / Back-end</option> -->
                 <option value="Manutenção / Melhoria">🔧 Manutenção ou Melhoria de Projeto</option>
                 <option value="Dúvida Técnica">🛠️ Dúvida Técnica</option>
                 <option value="Projeto Freelance">💼 Projeto Freelance</option>
