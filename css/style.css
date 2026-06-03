@@ -1424,7 +1424,7 @@ body:has(button:hover) #cursor-ring {
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.1rem;
+  /* gap: 1.1rem; */
 }
 .form-group {
   display: flex;

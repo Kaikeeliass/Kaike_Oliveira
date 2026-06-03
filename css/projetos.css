@@ -156,8 +156,8 @@
 }
 
 .proj-emoji img.img_tri {
-  width: 13rem;
-  height: 7rem;
+  width: 12rem !important;
+  height: 8rem !important;
 }
 
 .proj-card:hover .proj-emoji {

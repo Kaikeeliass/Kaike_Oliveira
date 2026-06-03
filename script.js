@@ -104,14 +104,15 @@ document.querySelectorAll(
   ".services-grid .service-card, .projects-grid .project-card, .proj-grid .proj-card"
 ).forEach((el, i) => { el.style.transitionDelay = (i * 0.08) + "s"; });
 
-/* ── EFEITO DIGITAÇÃO — hero portfólio ── */
 const typingTarget = document.getElementById("typing-target");
 if (typingTarget) {
   const texts = [
-    "Transformo ideias em sistemas reais.",
+    "Transformando ideias em sistemas reais.",
     "Desenvolvedor Full-Stack em formação.",
-    "Criador da startup Nexus.",
-    "Empreendedor movido por tecnologia e impacto.",
+    "Estudante de Engenharia de Software.",
+    "Construindo soluções que unem tecnologia e negócios.",
+    "Apaixonado por desenvolvimento de software e inovação.",
+    "Sempre aprendendo, criando e evoluindo.",
   ];
   let ti = 0, ci = 0, del = false, paused = false, started = false;
 
