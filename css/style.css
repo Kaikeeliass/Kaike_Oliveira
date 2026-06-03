@@ -2105,14 +2105,13 @@ body:has(button:hover) #cursor-ring {
 }
 @media (max-width: 768px) {
   .stats-strip-inner {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem 1rem;
+    grid-template-columns: repeat(3, 1fr);
   }
-  .stats-strip-inner > *:nth-child(3) {
+  /* .stats-strip-inner > *:nth-child(3) {
     grid-column: 1 / -1;
     max-width: 200px;
     margin: 0 auto;
-  }
+  } */
   .about-cards {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -2200,7 +2199,6 @@ body:has(button:hover) #cursor-ring {
   }
   .stats-strip-inner {
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
   }
   .stats-strip-inner > *:nth-child(3) {
     grid-column: auto;
@@ -2254,10 +2252,9 @@ body:has(button:hover) #cursor-ring {
     padding: 0 1rem;
   }
   .stats-strip-inner {
-    grid-template-columns: 1fr;
-    max-width: 200px;
-    margin: 0 auto;
-    gap: 1.25rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.25rem;
+    padding: 0 0.75rem;
   }
   .photo-frame-lg,
   .hero-photo-lg {
@@ -2269,6 +2266,13 @@ body:has(button:hover) #cursor-ring {
   }
   .mode-banner span {
     display: none;
+  }
+}
+
+@media (max-width: 320px) {
+  .stats-strip-inner {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }
 @media (hover: none) and (pointer: coarse) {
