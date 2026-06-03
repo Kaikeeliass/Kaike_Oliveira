@@ -1549,12 +1549,15 @@ body:has(button:hover) #cursor-ring {
   border-color: var(--border-s);
   color: var(--muted);
 }
-.budget-pill:hover {
-  border-color: rgba(59, 124, 244, 0.5);
+.budget-pill:hover,
+:root:not([data-theme="dark"]) .budget-pill:hover {
+  border-color: var(--accent);
   color: var(--accent);
-  background: rgba(59, 124, 244, 0.08);
+  background: var(--accent-soft);
 }
-.budget-pill.selected {
+
+.budget-pill.selected,
+:root:not([data-theme="dark"]) .budget-pill.selected {
   background: var(--accent);
   border-color: var(--accent);
   color: #fff;
