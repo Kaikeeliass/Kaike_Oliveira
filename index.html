@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/projetos.css" />
   <link rel="stylesheet" href="css/servicos.css">
+  <link rel="stylesheet" href="css/modal.css">
 </head>
 
 <body>
@@ -21,10 +22,10 @@
   <div id="cursor"></div>
   <div id="cursor-ring"></div>
 
-  <div class="mode-banner">
+  <!-- <div class="mode-banner">
     <span>Quer contratar?</span>
     <a href="servicos.html">Ver serviços →</a>
-  </div>
+  </div> -->
 
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
@@ -101,7 +102,6 @@
 
     </div>
 
-    <div class="scroll-line"></div>
   </section>
 
   <div class="stats-strip-hero">
@@ -597,12 +597,9 @@
       </div>
     </div>
   </section>
-
   <section id="contact" class="section contact-section">
     <div class="contact-bg"></div>
-
     <div class="container" style="position:relative;z-index:1;">
-
       <div class="section-head reveal">
         <span class="section-label">Vamos conversar</span>
         <h2 class="section-title">Entre em <span>Contato</span></h2>
@@ -610,9 +607,7 @@
       </div>
 
       <div class="contact-layout">
-
         <div class="contact-info reveal">
-
           <div class="contact-item">
             <div class="c-icon">✉️</div>
             <div>
@@ -652,46 +647,39 @@
           </div>
         </div>
 
-        <div class="contact-com-form reveal">
-          <form id="contactForm">
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label">Nome *</label>
-                <input type="text" name="nome" class="form-input" placeholder="Seu nome completo" required />
+        <!-- Formulário simplificado -->
+          <form id="contactForm" class="contact-simple-form" novalidate>
+
+            <div class="csf-row">
+              <div class="csf-group">
+                <label for="csf-nome">Nome *</label>
+                <input type="text" id="csf-nome" name="nome" placeholder="Seu nome completo" autocomplete="name"
+                  required />
               </div>
-              <div class="form-group">
-                <label class="form-label">E-mail *</label>
-                <input type="email" name="email" class="form-input" placeholder="seu@email.com" required />
+              <div class="csf-group">
+                <label for="csf-email">E-mail *</label>
+                <input type="email" id="csf-email" name="email" placeholder="seu@email.com" autocomplete="email"
+                  required />
               </div>
             </div>
-            <div class="form-group">
-              <label class="form-label">Empresa (opcional)</label>
-              <input type="text" name="empresa" class="form-input" placeholder="Nome da sua empresa" />
+
+            <div class="csf-group">
+              <label for="csf-mensagem">Mensagem *</label>
+              <textarea id="csf-mensagem" name="mensagem" rows="4"
+                placeholder="Sobre o que quer conversar? Projeto, oportunidade, parceria…" required></textarea>
             </div>
-            <div class="form-group">
-              <label class="form-label">Tipo de projeto *</label>
-              <select name="tipo" class="form-input" required>
-                <option value="" disabled selected>Selecione o tipo</option>
-                <option>Site Institucional</option>
-                <option>Landing Page</option>
-                <option>Sistema Web / Painel</option>
-                <option>Plataforma / Startup</option>
-                <option>Integração / Automação</option>
-                <option>Manutenção de site existente</option>
-                <option>Outro</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Mensagem *</label>
-              <textarea name="mensagem" class="form-input" rows="4"
-                placeholder="Conte sobre o projeto, prazo e orçamento estimado..." required></textarea>
-            </div>
-            <button type="submit" class="form-btn" id="submitBtn">💬 Enviar via WhatsApp →</button>
+
+            <p class="csf-whatsapp-note">📲 Você será redirecionado para o WhatsApp com a mensagem preenchida.</p>
+
+            <button type="submit" class="csf-submit" id="submitBtnIndex">
+              💬 Enviar via WhatsApp →
+            </button>
+
           </form>
-        </div>
       </div>
     </div>
   </section>
+
 
   <footer class="footer">
     <div class="container footer-inner">
@@ -705,6 +693,137 @@
     </div>
   </footer>
 
+  <button class="fab-orcamento js-open-modal" aria-label="Solicitar orçamento">
+    <span class="fab-dot"></span>
+    Solicitar orçamento
+  </button>
+  <div class="modal-overlay" id="modal-orcamento" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box">
+
+      <div class="modal-header">
+        <div class="modal-header-text">
+          <span class="modal-label">Vamos criar algo incrível</span>
+          <h2 id="modal-title">Solicite seu orçamento</h2>
+          <p>Respondo em até 24 horas. Sem compromisso.</p>
+        </div>
+        <button class="modal-close js-close-modal" aria-label="Fechar modal">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <form id="formContato" class="contact-form" novalidate>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nome"><span class="label-icon">👤</span> Seu Nome <span class="required">*</span></label>
+              <input type="text" id="nome" name="from_name" placeholder="Ex: João Silva" autocomplete="name" required />
+              <span class="field-error" id="err-nome"></span>
+            </div>
+            <div class="form-group">
+              <label for="empresa"><span class="label-icon">🏢</span> Empresa / Projeto</label>
+              <input type="text" id="empresa" name="company" placeholder="Ex: Minha Startup (opcional)"
+                autocomplete="organization" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email"><span class="label-icon">✉️</span> E-mail <span class="required">*</span></label>
+              <input type="email" id="email" name="reply_to" placeholder="seu@email.com" autocomplete="email"
+                required />
+              <span class="field-error" id="err-email"></span>
+            </div>
+            <div class="form-group">
+              <label for="telefone"><span class="label-icon">📱</span> WhatsApp / Telefone</label>
+              <input type="tel" id="telefone" name="phone" inputmode="numeric" placeholder="(17) 99999-9999"
+                autocomplete="tel" />
+              <span class="field-error" id="err-telefone"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="assunto"><span class="label-icon">🎯</span> Tipo de Assunto <span
+                class="required">*</span></label>
+            <div class="select-wrapper">
+              <select id="assunto" name="subject_type" required>
+                <option value="" disabled selected>Selecione o tipo de contato…</option>
+                <option value="Site Institucional">🌐 Site Institucional</option>
+                <option value="Landing Page">🚀 Landing Page</option>
+                <option value="Sistema Web">⚙️ Sistema Web (login, dashboard, CRUD)</option>
+                <option value="Sistema Desktop">🖥️ Sistema Desktop</option>
+                <option value="API / Back-end">🔌 API / Back-end</option>
+                <option value="Manutenção / Melhoria">🔧 Manutenção ou Melhoria de Projeto</option>
+                <option value="Dúvida Técnica">🛠️ Dúvida Técnica</option>
+                <option value="Projeto Freelance">💼 Projeto Freelance</option>
+                <option value="Outros">💬 Outros</option>
+              </select>
+              <span class="select-arrow">▾</span>
+            </div>
+            <span class="field-error" id="err-assunto"></span>
+          </div>
+
+          <div class="form-group" id="budget-group" style="display:none">
+            <label for="orcamento"><span class="label-icon">💰</span> Orçamento estimado</label>
+            <div class="budget-pills" id="budget-pills" role="group" aria-label="Faixa de orçamento">
+              <button type="button" class="budget-pill" data-value="Até R$500">Até R$500</button>
+              <button type="button" class="budget-pill" data-value="R$500–2k">R$500–2k</button>
+              <button type="button" class="budget-pill" data-value="R$2k–5k">R$2k–5k</button>
+              <button type="button" class="budget-pill" data-value="R$5k+">R$5k+</button>
+              <button type="button" class="budget-pill" data-value="A combinar">A combinar</button>
+            </div>
+            <input type="hidden" id="orcamento" name="budget" value="" />
+          </div>
+
+          <div class="form-group" id="prazo-group" style="display:none">
+            <label for="prazo"><span class="label-icon">📅</span> Prazo desejado</label>
+            <div class="select-wrapper">
+              <select id="prazo" name="deadline">
+                <option value="" selected>Sem prazo definido</option>
+                <option value="Urgente (1–2 semanas)">🔥 Urgente (1–2 semanas)</option>
+                <option value="Curto prazo (1 mês)">⚡ Curto prazo (1 mês)</option>
+                <option value="Médio prazo (2–3 meses)">📆 Médio prazo (2–3 meses)</option>
+                <option value="Longo prazo (3+ meses)">🗓️ Longo prazo (3+ meses)</option>
+              </select>
+              <span class="select-arrow">▾</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="origem"><span class="label-icon">🔍</span> Como me encontrou?</label>
+            <div class="select-wrapper">
+              <select id="origem" name="source">
+                <option value="" selected>Prefiro não informar</option>
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="GitHub">GitHub</option>
+                <option value="Indicação">Indicação de alguém</option>
+                <option value="Google">Google / Pesquisa</option>
+                <option value="Instagram">Instagram</option>
+                <option value="Outros">Outros</option>
+              </select>
+              <span class="select-arrow">▾</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="mensagem"><span class="label-icon">💬</span> Mensagem <span class="required">*</span></label>
+            <textarea id="mensagem" name="message" rows="4"
+              placeholder="Descreva seu projeto, dúvida ou ideia com o máximo de detalhes possível…"
+              required></textarea>
+            <div class="char-counter"><span id="char-count">0</span>/800 caracteres</div>
+            <span class="field-error" id="err-mensagem"></span>
+          </div>
+
+          <div class="form-footer">
+            <p class="form-note"><span>🔒</span> Seus dados são usados apenas para responder sua mensagem.</p>
+            <button type="submit" class="submit-btn" id="submitBtn">
+              <span class="btn-text">Enviar Mensagem</span>
+              <span class="btn-icon">→</span>
+              <span class="btn-loading" style="display:none"><span class="spinner"></span> Enviando…</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
 

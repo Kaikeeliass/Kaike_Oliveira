@@ -78,6 +78,7 @@ svg {
     clamp(2.5rem, 5vw, 4rem);
   position: relative;
   overflow: hidden;
+  z-index: 9999;
   text-align: center;
   background: linear-gradient(155deg, #060d1e 0%, #0d1a38 55%, #060d1e 100%);
 }

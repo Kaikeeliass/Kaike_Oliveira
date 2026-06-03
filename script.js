@@ -108,8 +108,8 @@ document.querySelectorAll(
 const typingTarget = document.getElementById("typing-target");
 if (typingTarget) {
   const texts = [
-    "Transformo ideias em sistemas reais — do banco de dados à interface.",
-    "Desenvolvedor Full-Stack em formação no IFSP.",
+    "Transformo ideias em sistemas reais.",
+    "Desenvolvedor Full-Stack em formação.",
     "Criador da startup Nexus.",
     "Empreendedor movido por tecnologia e impacto.",
   ];
@@ -437,7 +437,7 @@ if (banner && footer) {
         <div class="success-icon">✅</div>
         <h3>Mensagem enviada!</h3>
         <p>Obrigado pelo contato, ${document.getElementById("nome")?.value.trim().split(" ")[0] || ""}!<br>
-           Responderei em até 24h nos dias úteis.</p>
+           Responderei em até 3 dias úteis.</p>
         <button class="btn-reset" type="button">Enviar outra mensagem</button>
       `;
       form.parentNode.insertBefore(el, form.nextSibling);
@@ -530,5 +530,89 @@ if (banner && footer) {
         }
       });
     });
+  });
+})();
+
+(function () {
+  const overlay = document.getElementById("modal-orcamento");
+  if (!overlay) return;
+
+  const focusable =
+    'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+  function openModal() {
+    overlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+
+    /* foco no primeiro campo */
+    const first = overlay.querySelector(focusable);
+    if (first) setTimeout(() => first.focus(), 50);
+  }
+
+  function closeModal() {
+    overlay.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  document.querySelectorAll(".js-open-modal").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      openModal();
+    });
+  });
+
+  document.querySelectorAll(".js-close-modal").forEach((btn) => {
+    btn.addEventListener("click", closeModal);
+  });
+
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeModal();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && overlay.classList.contains("open")) closeModal();
+  });
+
+  const fab = document.querySelector(".fab-orcamento");
+  const footer = document.querySelector(".footer");
+  if (fab && footer) {
+    new IntersectionObserver(
+      ([entry]) => fab.classList.toggle("hidden", entry.isIntersecting),
+      { threshold: 0.1 }
+    ).observe(footer);
+  }
+})();
+
+(function () {
+  const form = document.getElementById("contactForm");
+  if (!form) return;
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const nome     = document.getElementById("csf-nome").value.trim();
+    const email    = document.getElementById("csf-email").value.trim();
+    const mensagem = document.getElementById("csf-mensagem").value.trim();
+
+    if (!nome || !email || !mensagem) {
+      alert("Por favor, preencha todos os campos.");
+      return;
+    }
+
+    const texto = [
+      "📩 *Contato pelo Portfólio!*",
+      "",
+      `*Nome:* ${nome}`,
+      `*E-mail:* ${email}`,
+      "",
+      `*Mensagem:*`,
+      mensagem,
+    ].join("\n");
+
+    window.open(
+      "https://wa.me/5517981568889?text=" + encodeURIComponent(texto),
+      "_blank",
+      "noopener"
+    );
   });
 })();
