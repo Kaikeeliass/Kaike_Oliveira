@@ -2,7 +2,7 @@ document.querySelectorAll("[id='year'], .js-year").forEach(el => {
   el.textContent = new Date().getFullYear();
 });
 
-/* ── TEMA CLARO / ESCURO ── */
+
 const html = document.documentElement;
 const themeToggleBtn = document.getElementById("theme-toggle");
 
@@ -19,7 +19,6 @@ if (themeToggleBtn) {
   });
 }
 
-/* ── NAVBAR scroll + hamburger ── */
 const navbar = document.getElementById("navbar");
 window.addEventListener("scroll", () => {
   navbar?.classList.toggle("scrolled", window.scrollY > 40);
@@ -42,7 +41,6 @@ if (hamburger && mobileMenu) {
   });
 }
 
-/* ── CURSOR PERSONALIZADO ── */
 const cursor = document.getElementById("cursor");
 const cursorRing = document.getElementById("cursor-ring");
 
@@ -71,7 +69,6 @@ if (cursor && cursorRing && window.matchMedia("(pointer: fine)").matches) {
   });
 }
 
-/* ── INTERSECTION OBSERVER — reveal + skill bars + counters ── */
 const revealObs = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
@@ -150,7 +147,6 @@ if (typingTarget) {
   }
 }
 
-/* ── TABS hard/soft skills ── */
 document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
@@ -164,7 +160,6 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
   });
 });
 
-/* ── FILTRO DE PROJETOS ── */
 const filterBtns = document.querySelectorAll(".filter-btn");
 const projCards = document.querySelectorAll(".proj-card[data-cat]");
 
@@ -209,7 +204,6 @@ function showToast(msg, type = "info") {
   }, 3600);
 }
 
-/* ── LINK ATIVO NA NAVBAR por scroll ── */
 const allSections = document.querySelectorAll("section[id], header[id]");
 const allNavLinks = document.querySelectorAll(".nav-links a, .mobile-menu a");
 
@@ -226,7 +220,6 @@ allSections.forEach(s => {
   }, { threshold: 0.42 }).observe(s);
 });
 
-/* ── SCROLL SUAVE — âncoras na mesma página ── */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener("click", e => {
     const tgt = document.querySelector(anchor.getAttribute("href"));
@@ -234,7 +227,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-/* ── BOTÃO VOLTAR AO TOPO ── */
 document.querySelectorAll(".back-top").forEach(btn => {
   btn.addEventListener("click", e => {
     e.preventDefault();
@@ -242,7 +234,6 @@ document.querySelectorAll(".back-top").forEach(btn => {
   });
 });
 
-/* ── MODE BANNER — esconde ao chegar no footer ── */
 const banner = document.querySelector(".mode-banner");
 const footer = document.querySelector(".footer");
 if (banner && footer) {
@@ -251,8 +242,6 @@ if (banner && footer) {
     { threshold: 0.1 }
   ).observe(footer);
 }
-
-/* ── FORMULÁRIO DE CONTATO — EmailJS ── */
 (function initContactForm() {
   const EMAILJS_PUBLIC_KEY = "uikqMZyeHWmzNWxR6";
   const EMAILJS_SERVICE_ID = "service_ucfvv6i";
@@ -293,7 +282,7 @@ if (banner && footer) {
     const prazoGroup = document.getElementById("prazo-group");
 
     assuntoSel?.addEventListener("change", () => {
-      const isProject = assuntoSel.value === "Projeto Freelance";
+      const isProject = assuntoSel.value === "Projeto Freelance" || assuntoSel.value === "Site Institucional" || assuntoSel.value === "Landing Page" || assuntoSel.value === "Sistema Web" || assuntoSel.value === "Sistema Desktop" || assuntoSel.value === "Manutenção / Melhoria" || assuntoSel.value === "Outros";
       if (budgetGroup) budgetGroup.style.display = isProject ? "" : "none";
       if (prazoGroup) prazoGroup.style.display = isProject ? "" : "none";
     });
@@ -314,27 +303,14 @@ if (banner && footer) {
 
     const phoneInput = document.getElementById("telefone");
     const MAX_PHONE_DIGITS = 11;
-
     if (phoneInput) {
-      phoneInput.addEventListener("keydown", (e) => {
-        const allowed = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab", "Home", "End"];
-        if (allowed.includes(e.key)) return;
-        if (!/^\d$/.test(e.key)) { e.preventDefault(); return; }
-        if (phoneInput.value.replace(/\D/g, "").length >= MAX_PHONE_DIGITS) {
-          e.preventDefault();
-        }
-      });
-
-      phoneInput.addEventListener("paste", (e) => {
-        e.preventDefault();
-        const pasted = (e.clipboardData || window.clipboardData).getData("text");
-        const onlyDigits = pasted.replace(/\D/g, "").slice(0, MAX_PHONE_DIGITS);
-        const current = phoneInput.value.replace(/\D/g, "");
-        phoneInput.value = (current + onlyDigits).slice(0, MAX_PHONE_DIGITS);
-      });
-
-      phoneInput.addEventListener("input", () => {
-        phoneInput.value = phoneInput.value.replace(/\D/g, "").slice(0, MAX_PHONE_DIGITS);
+      phoneInput.addEventListener("input", (e) => {
+        let valor = e.target.value;
+        valor = valor.replace(/\D/g, '');
+        valor = valor.substring(0, MAX_PHONE_DIGITS);
+        valor = valor.replace(/^(\d{2})(\d)/g, '($1) $2');
+        valor = valor.replace(/(\d)(\d{4})$/, '$1-$2');
+        e.target.value = valor;
       });
     }
 
@@ -409,7 +385,7 @@ if (banner && footer) {
           valid = setError("telefone", "err-telefone", "Celular com 11 dígitos deve ter 9 após o DDD.") && valid;
         }
       }
-      
+
       if (!assunto)
         valid = setError("assunto", "err-assunto", "Selecione o tipo de assunto.") && valid;
 
@@ -438,7 +414,7 @@ if (banner && footer) {
         <div class="success-icon">✅</div>
         <h3>Mensagem enviada!</h3>
         <p>Obrigado pelo contato, ${document.getElementById("nome")?.value.trim().split(" ")[0] || ""}!<br>
-           Responderei em até 3 dias úteis.</p>
+            Responderei em até 3 dias úteis.</p>
         <button class="btn-reset" type="button">Enviar outra mensagem</button>
       `;
       form.parentNode.insertBefore(el, form.nextSibling);
@@ -544,8 +520,6 @@ if (banner && footer) {
   function openModal() {
     overlay.classList.add("open");
     document.body.style.overflow = "hidden";
-
-    /* foco no primeiro campo */
     const first = overlay.querySelector(focusable);
     if (first) setTimeout(() => first.focus(), 50);
   }

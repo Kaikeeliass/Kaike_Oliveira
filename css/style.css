@@ -1711,7 +1711,7 @@ body:has(button:hover) #cursor-ring {
   color: var(--accent);
 }
 .footer {
-  background: var(--bg);
+  background: var(--bg-alt);
   border-top: 1px solid rgba(59, 124, 244, 0.1);
   padding: 1.75rem 0;
 }
